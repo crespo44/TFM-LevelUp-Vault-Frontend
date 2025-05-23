@@ -1,0 +1,25 @@
+#root {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1f1e1e; 
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+label{
+  font-size: 1.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  label{
+    font-size: 1.1rem;
+  }
+}

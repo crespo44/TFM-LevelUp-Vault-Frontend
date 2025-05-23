@@ -1,0 +1,36 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #121212;
+  padding: 2rem;
+  text-align: center;
+}
+
+.login__logo-container {
+  margin-bottom: 2rem;
+}
+
+.login__logo {
+  max-width: 180px;
+  height: auto;
+}
+
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  .login__logo {
+    max-width: 220px;
+  }
+}
+
+/* Escritorio */
+@media screen and (min-width: 1024px) {
+  .login__logo {
+    max-width: 260px;
+  }
+}
