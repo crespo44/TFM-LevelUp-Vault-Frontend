@@ -1,0 +1,20 @@
+
+.container-nf{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+
+}
+
+.title-nf {
+  font-size: 9rem;
+  font-weight: bold;
+  color: #631cdf;
+  font-family:monospace
+}
+
+p {
+  font-size: 1.8rem;
+}
