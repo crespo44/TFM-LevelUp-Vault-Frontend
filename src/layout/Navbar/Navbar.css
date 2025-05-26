@@ -1,0 +1,101 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #2f2036, #482468);
+  color: #fff;
+  padding: 1rem;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.navbar__logo img {
+  height: 60px;
+  width: 10rem;
+}
+
+.navbar__toggle {
+  font-size: 1.5rem;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
+.navbar__links {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 85px;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to right, #2f2036, #482468);
+  padding: 1rem;
+  gap: 1rem;
+  z-index: 999;
+}
+
+.navbar__links.active {
+  display: flex;
+}
+
+.navbar__links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.navbar__user-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.navbar__user-desktop{
+  display: none;
+}
+
+.logout-icon {
+  background: none;
+  border: none;
+  font-size: 1.60rem;
+  cursor: pointer;
+  color: white;
+}
+
+/* Desktop styles */
+@media screen and (min-width: 1024px) {
+  .navbar__toggle {
+    display: none;
+  }
+
+  .navbar__links {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    width: auto;
+    background: none;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .navbar__user-mobile {
+    display: none;
+  }
+
+  .navbar__user-desktop {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .navbar__user-desktop button {
+    background-color: #6a0dad;
+    border: none;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
