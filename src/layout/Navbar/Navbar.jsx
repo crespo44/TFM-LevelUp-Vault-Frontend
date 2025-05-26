@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../../assets/LUVLogo.webp';
+import logo from '/LUVLogo.webp';
 
 const Navbar = ({ username, onLogout }) => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -56,7 +56,7 @@
 }
 
 .modal-content {
-  background-color: #1e1e1e;
+  background-color: #1b141f;
   padding: 1.5rem;
   border-radius: 10px;
   position: relative;
@@ -95,7 +95,8 @@
 /*---- Escritorio----- */
 @media screen and (min-width: 1024px) {
   .modal-content {
-    padding: 3rem;
+    padding: 2rem 3rem;
+    max-height: 90vh;
   }
 
   .login-form {

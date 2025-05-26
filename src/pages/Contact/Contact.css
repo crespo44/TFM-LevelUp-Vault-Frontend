@@ -1,0 +1,29 @@
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  min-height: 100vh;
+}
+
+.contact-header h2 {
+  color: #a48ef4;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-header p {
+  color: #ccc;
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .contact-header p {
+    font-size: 1.1rem;
+  }
+}
