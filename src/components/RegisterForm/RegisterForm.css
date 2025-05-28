@@ -10,9 +10,9 @@
 }
 
 .register-form label {
-  margin-bottom: 0.25rem;
   color: #ccc;
   text-align: left;
+  font-size: 1rem;
 }
 
 .register-form input,
@@ -29,14 +29,16 @@
 }
 
 .register-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
+  margin-top: 1.2rem;
 }
 
 /* Tablet y Escritorio */
 @media screen and (min-width: 768px) {
   .register-form {
-    gap: 1.5rem;
+    gap: 1rem;
+  }
+  .register-form label {
+    font-size: 1rem;
+    font-weight: 600;
   }
 }

@@ -1,35 +1,43 @@
 import { useState } from "react";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import LoginSchema from './loginValidation';
 import Card from "../Card/Card";
 import Button from '../Buttons/Button';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import "./LoginForm.css";
 
 const LoginForm = () => {
-  const initialValues = { username: "", password: "" };
-  const [formData, setFormData] = useState(initialValues);
   const [showModal, setShowModal] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    resolver: yupResolver(LoginSchema)
+  });
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    console.log('Datos validados:', data);
+    reset();
   };
 
   return (
     <>
       <Card>
-        <form onSubmit={handleLogin} className="login-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
 
           <h2>Inicio de sesión</h2>
-          <label htmlFor="username">Usuario</label>
-          <input type="text" name="username" placeholder="Usuario" value={formData.username} onChange={handleChange}required/>
-          <label htmlFor="password">Contraseña</label>
-          <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} nrequired/>
+          <div className="login_form-group">
+            <label htmlFor="username">Usuario</label>
+            <input type="text" name="username" id="username" placeholder="Introduce tu nombre de usuario"{...register('username')}/>
+            {errors.username && <p className="error">{errors.username.message}</p>}
+          </div>
+          <div className="login_form-group">
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" name="password" id="password" placeholder="Introduce tu contraseña" {...register('password')}/>
+            {errors.password && <p className="error">{errors.password.message}</p>}
+          </div>
           <div className="login-buttons">
-            <Button type="submit" text="Enviar" />
-            <Button type="button" text="Registro" onClick={() => setShowModal(true)} />
+            <Button type="submit" text="Iniciar sesión" />
+            <Button type="button" text="Registrarse" onClick={() => setShowModal(true)} />
           </div>
         </form>
       </Card>

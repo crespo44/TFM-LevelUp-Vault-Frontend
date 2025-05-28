@@ -34,6 +34,11 @@ label{
   padding: 2rem;
 }
 
+.error {
+  color: #ff6b6b;
+  font-size: 1rem;
+}
+
 @media screen and (min-width: 768px) {
   label{
     font-size: 1.1rem;

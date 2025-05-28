@@ -1,0 +1,19 @@
+.star-rating-input {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #555;
+  transition: color 0.2s ease-in-out;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.star.filled {
+  color: #761aee;
+}

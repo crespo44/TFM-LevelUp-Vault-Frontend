@@ -4,17 +4,19 @@
   box-shadow: 2px 3px 2px #3b149c;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   width: 100%;
+  transition: background-color 0.3s ease;
 }
 
 .custom-button:hover {
-  background-color: #4019a2;
+  background-color: #5a0db5;
+  box-shadow: 2px 3px 2px #530ba4;
 }
 .custom-button:active {
-  background-color: #1f0c4f;
-  box-shadow: 2px 0px 4px #3b149c;
+  background-color: rgb(24, 10, 57);
+  box-shadow: 2px 0px 4px #321188;
 }
 
 .btn-close{
@@ -35,7 +37,15 @@
 /*--- Tablet y Escritorio--- */
 @media screen and (min-width: 768px) {
   .custom-button {
-    width: auto;
     min-width: 100px;
   }
+  .btn-contact{
+    width: auto;
+    max-width: 100px;
+  }
+  .create-button{
+    width: auto;
+    font-size: 1rem;
+  }
+
 }

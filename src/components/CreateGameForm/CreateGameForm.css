@@ -1,0 +1,102 @@
+.create-game-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.create_form-field,
+.create_form-group {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.create_form-label,
+.create_form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 500;
+  color: #d6c2f3;
+}
+
+.create_form-input,
+.create_form-select,
+.create_form-textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #392a4b;
+  color: #f0f0f0;
+  font-size: 1rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.5rem 0 2rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #a48ef4;
+}
+
+.form-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.form-button-wrapper button {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  .checkbox-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .create_form-label,
+  .create_form-field label{
+    font-size: 1.5rem;
+  }
+
+  .create_form-input,
+  .create_form-select,
+  .create_form-textarea {
+    font-size: 1.05rem;
+  }
+
+  .create_form-button-wrapper button {
+    width: 60%;
+  }
+}
+
+/* Escritorio */
+@media screen and (min-width: 1024px) {
+  .create_form-title {
+    font-size: 2.2rem;
+  }
+
+  .create_form-button-wrapper button {
+    width: 50%;
+  }
+}

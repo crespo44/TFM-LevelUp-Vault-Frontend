@@ -23,7 +23,7 @@ const Navbar = ({ username, onLogout }) => {
 
       <div className={`navbar__links ${menuOpen ? 'active' : ''}`}>
         <Link to="/home" onClick={() => setMenuOpen(false)}>Mis juegos</Link>
-        <Link to="/add-game" onClick={() => setMenuOpen(false)}>Agregar Juego</Link>
+        <Link to="/addGame" onClick={() => setMenuOpen(false)}>Agregar Juego</Link>
         <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
 
         <div className="navbar__user-mobile">

@@ -1,0 +1,30 @@
+.add-game-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.add-game-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  color: #a48ef4;
+}
+
+.add-game-subtitle {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ccc;
+}
+
+.add-game-description {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+}

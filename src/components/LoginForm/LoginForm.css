@@ -15,6 +15,14 @@
   color: #ccc;
   text-align: left;
 }
+.login_form-group {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .login-form input {
   padding: 0.6rem;
@@ -33,15 +41,6 @@
   gap: 0.75rem;
 }
 
-.login-buttons button {
-  padding: 0.75rem;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
-}
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -56,7 +55,7 @@
 }
 
 .modal-content {
-  background-color: #1b141f;
+  background-color: #281334;
   padding: 1.5rem;
   border-radius: 10px;
   position: relative;
@@ -79,15 +78,11 @@
 @media screen and (min-width: 768px) {
   .login-buttons {
     flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .login-buttons button {
-    width: auto;
-    flex: 1;
+    justify-content: space-evenly;
   }
   .login-form label {
     font-size: 1rem;
+    font-weight: 600;
   }
 
 }
@@ -96,7 +91,6 @@
 @media screen and (min-width: 1024px) {
   .modal-content {
     padding: 2rem 3rem;
-    max-height: 90vh;
   }
 
   .login-form {

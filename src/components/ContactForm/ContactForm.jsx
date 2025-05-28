@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import contactSchema from './contactValidation';
+import Button from '../Buttons/Button';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -15,25 +16,27 @@ const ContactForm = () => {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <h2 className="form-title">Contáctanos</h2>
-        <label>Nombre</label>
-        <input id="name" {...register('name')} />
+      <div className="contact-field">
+        <h2 className="contact-title">Contáctanos</h2>
+        <label htmlFor="name">Nombre</label>
+        <input type='text' id="name" {...register('name')} />
         {errors.name && <span className="error">{errors.name.message}</span>}
       </div>
 
-      <div>
-        <label>Email</label>
+      <div className="contact-field">
+        <label htmlFor="email">Email</label>
         <input id="email" type="email" {...register('email')} />
         {errors.email && <span className="error">{errors.email.message}</span>}
       </div>
-      <div>
-        <label>Comentarios</label>
+      <div className="contact-field">
+        <label htmlFor="comment">Comentarios</label>
         <textarea id="comment" rows="5" {...register('comment')} />
         {errors.comment && <span className="error">{errors.comment.message}</span>}
       </div>
-
-      <button type="submit">Enviar</button>
+      <div className="contact-button">
+        <Button type="submit" text="Enviar"  className='btn-contact'/>
+      </div>
+      
     </form>
   );
 }

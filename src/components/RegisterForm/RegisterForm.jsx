@@ -1,42 +1,59 @@
-import { useState } from "react";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import RegisterSchema from './registerValidation';
 import Button from "../Buttons/Button";
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    username: "",
-    email: "",
-    password: "",
-    role: "Usuario",
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    resolver: yupResolver(RegisterSchema)
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    console.log('Datos del usuario enviados:', data);
+    reset();
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit}>
+    <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <h2>Formulario de Registro</h2>
-      <label htmlFor="name">Nombre</label>
-      <input type="text" name="name" placeholder="Nombre" value={formData.name} onChange={handleChange} required/>
-      <label htmlFor="username">Nombre de usuario</label>
-      <input type="text" name="username" placeholder="Nombre de usuario" value={formData.username} onChange={handleChange} required/>
-      <label htmlFor="email">Email</label>
-      <input type="email" name="email" placeholder="example@correo.com" value={formData.email} onChange={handleChange} required/>
-      <label htmlFor="password">Contraseña</label>
-      <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} required />
-      <label htmlFor="role">Rol</label>
-      <select name="role" value={formData.role} onChange={handleChange}>
-        <option value="Administrador">Administrador</option>
-        <option value="Usuario">Usuario</option>
-      </select>
+      <div className="register_form-group">
+        <label htmlFor="name">Nombre</label>
+        <input type="text" name="name" placeholder="Nombre" {...register('name')}/>
+        {errors.name && <span className="error">{errors.name.message}</span>}
+      </div>
+      <div className="register_form-group">
+        <label htmlFor="username">Nombre de usuario</label>
+        <input type="text" name="username" placeholder="Nombre de usuario" {...register('username')}/>
+        {errors.username && <p className="error">{errors.username.message}</p>}
+      </div>
+      <div className="register_form-group">
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" placeholder="example@correo.com" {...register('email')} />
+        {errors.email && <span className="error">{errors.email.message}</span>}
+      </div>
+      <div className="register_form-group">
+        <label htmlFor="password">Contraseña</label>
+        <input type="password" name="password" placeholder="Contraseña"  {...register('password')}/>
+            {errors.password && <p className="error">{errors.password.message}</p>}
+      </div>
+      <div className="register_form-group">
+        <label htmlFor="confirm-password">Repita contraseña</label>
+        <input type="password" name="confirm-password"  {...register('confirmPassword')}/>
+            {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
+      </div>
+      <div className="register_form-group">
+        <label htmlFor="role">Rol</label>
+        <select name="role" {...register('role')}>
+          <option value="">Seleccionar</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Usuario">Usuario</option>
+        </select>
+        {errors.role && <span className="error">{errors.role.message}</span>}
+      </div>
+
       <div className="register-buttons">
-        <Button type="submit" text="Registrar" />
+        <Button type="submit" text="Enviar" />
       </div>
     </form>
   );
