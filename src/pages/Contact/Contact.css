@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 3rem;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
   min-height: 100vh;
+  text-align: center;
+  gap: 3rem;
 }
 
 .contact-header h2 {

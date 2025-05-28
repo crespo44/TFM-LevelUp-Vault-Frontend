@@ -4,12 +4,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2.4rem;
   padding: 4rem 1rem;
 
 }
 
 .title-nf {
-  font-size: 9rem;
+  font-size: 8rem;
   font-weight: bold;
   color: #631cdf;
   font-family:monospace

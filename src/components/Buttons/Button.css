@@ -47,5 +47,8 @@
     width: auto;
     font-size: 1rem;
   }
+  .btn-nf{
+    max-width: 100px;
+  }
 
 }

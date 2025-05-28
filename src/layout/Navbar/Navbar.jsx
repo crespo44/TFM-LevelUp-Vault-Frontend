@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '/LUVLogo.webp';
+import Button from '../../components/Buttons/Button';
 
 const Navbar = ({ username, onLogout }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navbar = ({ username, onLogout }) => {
 
       <div className={`navbar__links ${menuOpen ? 'active' : ''}`}>
         <Link to="/home" onClick={() => setMenuOpen(false)}>Mis juegos</Link>
-        <Link to="/addGame" onClick={() => setMenuOpen(false)}>Agregar Juego</Link>
+        <Link to="/addGame" onClick={() => setMenuOpen(false)}>Agregar juego</Link>
         <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
 
         <div className="navbar__user-mobile">
@@ -34,7 +35,7 @@ const Navbar = ({ username, onLogout }) => {
 
       <div className="navbar__user-desktop">
         <span>{username}</span>
-        <button onClick={onLogout}>Cerrar sesión</button>
+        <Button onClick={onLogout} text='Cerrar sesión' />
       </div>
     </nav>
   );
