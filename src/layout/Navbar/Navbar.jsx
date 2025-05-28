@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '/LUVLogo.webp';
 import Button from '../../components/Buttons/Button';
+import { useSelector,  useDispatch  } from 'react-redux';
+import { logout } from '../../slices/authSlice';
 
-const Navbar = ({ username, onLogout }) => {
+const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.auth.username);
 
   const handleLogout = () => {
     setMenuOpen(false);
-    onLogout();
+    dispatch(logout());
   };
 
   return (
@@ -35,7 +39,7 @@ const Navbar = ({ username, onLogout }) => {
 
       <div className="navbar__user-desktop">
         <span>{username}</span>
-        <Button onClick={onLogout} text='Cerrar sesión' />
+        <Button onClick={handleLogout} text='Cerrar sesión' />
       </div>
     </nav>
   );
