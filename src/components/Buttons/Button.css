@@ -8,36 +8,44 @@
   cursor: pointer;
   width: 100%;
   transition: background-color 0.3s ease;
+  font-size: 1.2rem;
 }
 
-.custom-button:hover {
-  background-color: #5a0db5;
-  box-shadow: 2px 3px 2px #530ba4;
-}
 .custom-button:active {
   background-color: rgb(24, 10, 57);
   box-shadow: 2px 0px 4px #321188;
 }
 
 .btn-close{
-    min-width: unset !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding: 0 !important;
-    font-size: 1rem;
-    border-radius: 50%;
-    background-color: #5a20ec;
-    border: 1px solid #321382;
-    box-shadow: 2px 3px 2px #3b149c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  min-width: unset !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  font-size: 1rem;
+  border-radius: 50%;
+  background-color: #5a20ec;
+  border: 1px solid #321382;
+  box-shadow: 2px 3px 2px #3b149c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-icon {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+  text-align: right;
 }
 
 /*--- Tablet y Escritorio--- */
 @media screen and (min-width: 768px) {
   .custom-button {
     min-width: 100px;
+    font-size: 1rem;
   }
   .btn-contact{
     width: auto;
@@ -49,6 +57,14 @@
   }
   .btn-nf{
     max-width: 100px;
+  }
+  .custom-button:hover {
+    background-color: #6f11da;
+    box-shadow: 2px 3px 2px #32177a;
+  }
+   .navbar-button:hover {
+    background-color: #3c0ab8;
+    box-shadow: 2px 3px 2px #281264;
   }
 
 }

@@ -1,21 +1,39 @@
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginSchema from './loginValidation';
 import Card from "../Card/Card";
 import Button from '../Buttons/Button';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import userService from "../../services/userService";
+import { setCredentials } from "../../slices/authSlice";
 import "./LoginForm.css";
 
 const LoginForm = () => {
   const [showModal, setShowModal] = useState(false);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(LoginSchema)
   });
 
-  const onSubmit = (data) => {
-    console.log('Datos validados:', data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await userService.login(data);
+      const { token, username, rol } = response.data;
+
+      dispatch(setCredentials({ token, username, rol }));
+
+      sessionStorage.setItem("auth", JSON.stringify({ token, username, rol }));
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Credenciales inválidas");
+    }
+
     reset();
   };
 

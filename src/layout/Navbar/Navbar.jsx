@@ -5,6 +5,7 @@ import logo from '/LUVLogo.webp';
 import Button from '../../components/Buttons/Button';
 import { useSelector,  useDispatch  } from 'react-redux';
 import { logout } from '../../slices/authSlice';
+import userService from "../../services/userService";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setMenuOpen(false);
     dispatch(logout());
+    userService.logout(); 
   };
 
   return (
@@ -31,18 +33,34 @@ const Navbar = () => {
         <Link to="/addGame" onClick={() => setMenuOpen(false)}>Agregar juego</Link>
         <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
 
-        <div className="navbar__user-mobile">
-          <span>{username}</span>
-          <button onClick={handleLogout} className="logout-icon">⎋</button>
+
+        <div className='navbar__user-mobile'>
+          <span className='navbar_username'>{username}</span>
+          <Button onClick={handleLogout} text = '⎋' className="logout-icon" />
         </div>
       </div>
 
       <div className="navbar__user-desktop">
-        <span>{username}</span>
-        <Button onClick={handleLogout} text='Cerrar sesión' />
+        <span className='navbar_username'>{username}</span>
+        <Button onClick={handleLogout} text='Cerrar sesión' className='navbar-button'/>
       </div>
     </nav>
   );
 };
+/*
+      <div className="navbar__user-desktop">
+        <span className='navbar_username'>{username}</span>
+        <Button onClick={handleLogout} text='Cerrar sesión' className='navbar-button'/>
+      </div>
+
+      <div className={window.innerWidth < 768 ? 'navbar__user-mobile' : 'navbar__user-desktop'}>
+        <span className='navbar_username'>{username}</span>
+        <Button 
+          onClick={handleLogout} 
+          text = {window.innerWidth < 768 ? '⎋' : 'Cerrar sesión'} 
+          className={window.innerWidth < 768 ? 'logout-icon' : 'navbar-button' } 
+        />
+      </div>
+*/
 
 export default Navbar;

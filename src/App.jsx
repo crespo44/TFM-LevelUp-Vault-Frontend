@@ -1,4 +1,7 @@
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "./slices/authSlice";
 import './App.css'
 import MainLayout from './layout/MainLayout/MainLayout';
 
@@ -10,6 +13,14 @@ import Contact from './pages/Contact/Contact';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const auth = sessionStorage.getItem("auth");
+    if (auth) {
+      const { token, username, role } = JSON.parse(auth);
+      dispatch(setCredentials({ token, username, role }));
+    }
+  }, [dispatch]);
 
   return (
       <Router>

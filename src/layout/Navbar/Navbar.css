@@ -32,7 +32,7 @@
   width: 100%;
   background: linear-gradient(to right, #2f2036, #482468);
   padding: 1rem;
-  gap: 1rem;
+  gap: 1.5rem;
   z-index: 999;
 }
 
@@ -43,13 +43,14 @@
 .navbar__links a {
   color: white;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .navbar__user-mobile {
   display: flex;
-  justify-content: space-between;
+  justify-content:end;
   align-items: center;
+  gap: 1rem;
   margin-top: 1rem;
 }
 .navbar__user-desktop{
@@ -59,9 +60,12 @@
 .logout-icon {
   background: none;
   border: none;
-  font-size: 1.60rem;
+  font-size: 3rem;
   cursor: pointer;
   color: white;
+}
+.navbar_username{
+  font-size: 1.4rem;
 }
 
 /* Desktop styles */
@@ -79,6 +83,9 @@
     padding: 0;
     gap: 2rem;
   }
+  .navbar__links a {
+    font-size: 1.2rem;
+  }
 
   .navbar__user-mobile {
     display: none;
@@ -88,13 +95,16 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    flex-direction: column;
+    margin-right: 1.2rem;
+  }
+
+  .navbar_username{
+    font-size: 1.2rem;
   }
 
   .navbar__user-desktop button {
-    background-color: #6a0dad;
-    border: none;
-    color: white;
-    padding: 0.4rem 0.8rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
   }

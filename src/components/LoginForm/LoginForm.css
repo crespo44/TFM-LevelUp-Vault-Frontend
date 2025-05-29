@@ -33,6 +33,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  font-size: 1rem;
 }
 
 .login-buttons {
@@ -81,7 +82,7 @@
     justify-content: space-evenly;
   }
   .login-form label {
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: 600;
   }
 

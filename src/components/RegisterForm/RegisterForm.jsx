@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import RegisterSchema from './registerValidation';
 import Button from "../Buttons/Button";
+import userService from '../../services/userService'; 
+
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
@@ -9,9 +11,15 @@ const RegisterForm = () => {
     resolver: yupResolver(RegisterSchema)
   });
 
-  const onSubmit = (data) => {
-    console.log('Datos del usuario enviados:', data);
-    reset();
+  const onSubmit = async (data) => {
+    console.log("DATOS ENVIADOS AL BACKEND:", data);
+      try {
+        await userService.createUser(data);
+        console.log("Usuario creado exitosamente");
+      reset();
+    } catch (error) {
+      console.error("Error al crear el usuario:", error);
+    }
   };
 
   return (
@@ -44,10 +52,10 @@ const RegisterForm = () => {
       </div>
       <div className="register_form-group">
         <label htmlFor="role">Rol</label>
-        <select name="role" {...register('role')}>
+        <select name="role" {...register('rol')}>
           <option value="">Seleccionar</option>
-          <option value="Administrador">Administrador</option>
-          <option value="Usuario">Usuario</option>
+          <option value="administrador">Administrador</option>
+          <option value="usuario">Usuario</option>
         </select>
         {errors.role && <span className="error">{errors.role.message}</span>}
       </div>

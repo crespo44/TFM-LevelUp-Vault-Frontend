@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   const navigate = useNavigate();
 
   const homeNavigate = () =>{
-    navigate('/')
+    navigate('/home')
   }
 
   useEffect(() => {
