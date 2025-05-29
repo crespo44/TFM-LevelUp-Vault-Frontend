@@ -1,14 +1,15 @@
-import { useState } from "react";
 import "./StarsInput.css";
 
-const StarsInput = () => {
-  const [rating, setRating] = useState(0);
+const StarsInput = ({ rating, onChange }) => {
+  const handleClick = (val) => {
+    onChange(val); 
+  };
   return (
     <div className="star-rating-input">
       {[1, 2, 3, 4, 5].map((val) => (
         <span
           key={`star-${val}`}
-          onClick={() => setRating(val)}
+          onClick={() => handleClick(val)}
           className={val <= rating ? 'star filled' : 'star'}
           role="button"
           aria-label={`Estrella ${val}`}

@@ -5,6 +5,7 @@ import createGameSchema from './createGameValidation';
 import StarsInput from '../StarsInput/StarsInput';
 import './CreateGameForm.css';
 import Button from '../Buttons/Button';
+import gameService from '../../services/gameService';
 
 
 const CreateGameForm  = () => {
@@ -15,10 +16,16 @@ const CreateGameForm  = () => {
     defaultValues: { genre: [], platform: []}
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.rating = rating;
-    console.log('Juego creado:', data);
-    reset();
+    try {
+      await gameService.createGame(data); 
+      console.log('Juego creado correctamente');
+      reset();
+      setRating(0)
+    } catch (error) {
+      console.error('Error al crear el juego:', error);
+    }
   };
 
   return (
@@ -36,8 +43,8 @@ const CreateGameForm  = () => {
       <div className="create_form-group">
         <p className="create_form-label">Género</p>
         <div className="checkbox-group">
-          {['Acción💥', 'Aventura🧭', 'RPG🧙‍♂️📜', 'Shooter🎯', 'Puzzle🧩','Platformas🏃', 'Estrategia♟️', 'Deportes⚽', 'Carreras🏎️', 'Simulación🏠👨‍🌾',
-          'Lucha🥊', 'Terror👻', 'Survival🪓', 'MMO🌍', 'Sandbox🗺️', 'Otros'].map((genre, i) => (
+          {['Acción', 'Aventura', 'RPG', 'Shooter', 'Puzzle','Platformas', 'Estrategia', 'Deportes', 'Carreras', 'Simulación',
+          'Lucha', 'Terror', 'Survival', 'MMO', 'Sandbox', 'Otros'].map((genre, i) => (
             <div className="checkbox-item" key={genre}>
               <input type="checkbox" id={`genre-${genre}`} value={genre} {...register('genre')} />
               <label htmlFor={`genre-${i}`}>{genre}</label>
@@ -73,7 +80,7 @@ const CreateGameForm  = () => {
       {errors.status && <span className="error">{errors.status.message}</span>}
       <div className="create_form-field">
         <label htmlFor="rating">Valoración</label>
-        <StarsInput value={rating} onChange={setRating} />
+        <StarsInput rating={rating} onChange={(value) => setRating(value)} />
       </div>
       {errors.rating && <span className="error">{errors.rating.message}</span>}
       <div className="create_form-field">

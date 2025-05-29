@@ -12,7 +12,6 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("DATOS ENVIADOS AL BACKEND:", data);
       try {
         await userService.createUser(data);
         console.log("Usuario creado exitosamente");
