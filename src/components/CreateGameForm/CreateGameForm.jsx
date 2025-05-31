@@ -6,7 +6,8 @@ import StarsInput from '../StarsInput/StarsInput';
 import './CreateGameForm.css';
 import Button from '../Buttons/Button';
 import gameService from '../../services/gameService';
-
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const CreateGameForm  = () => {
   const [rating, setRating] = useState(0);
@@ -16,16 +17,22 @@ const CreateGameForm  = () => {
     defaultValues: { genre: [], platform: []}
   });
 
-  const onSubmit = async (data) => {
-    data.rating = rating;
-    try {
-      await gameService.createGame(data); 
-      console.log('Juego creado correctamente');
+  const mutation = useMutation({
+    mutationFn: (gameData) => gameService.createGame(gameData),
+    onSuccess: () =>{
+      toast.success('El juego ha sido añadido');
       reset();
       setRating(0)
-    } catch (error) {
-      console.error('Error al crear el juego:', error);
-    }
+    },
+    onError:(error) =>{
+      console.error('Error al añadir el juego', error)
+      toast.error('Error al añadir el juego');
+    },
+  })
+
+  const onSubmit = (data) => {
+    data.rating = rating;
+    mutation.mutate(data);
   };
 
   return (
@@ -41,7 +48,7 @@ const CreateGameForm  = () => {
       </div>
         {errors.description && <span className="error">{errors.description.message}</span>}
       <div className="create_form-group">
-        <p className="create_form-label">Género</p>
+        <label className="create_form-label">Género</label>
         <div className="checkbox-group">
           {['Acción', 'Aventura', 'RPG', 'Shooter', 'Puzzle','Platformas', 'Estrategia', 'Deportes', 'Carreras', 'Simulación',
           'Lucha', 'Terror', 'Survival', 'MMO', 'Sandbox', 'Otros'].map((genre, i) => (
@@ -54,7 +61,7 @@ const CreateGameForm  = () => {
         {errors.genre && <span className="error">{errors.genre.message}</span>}
       </div>
       <div className="create_form-group">
-        <p className="create_form-label">Plataformas</p>
+        <label className="create_form-label">Plataformas</label>
         <div className="checkbox-group">
           {['PC', 'PlayStation', 'PS2', 'PS3', 'PS4', 'PS5',
           'Xbox', 'Xbox 360', 'Xbox One', 'Xbox Ser. X',
@@ -88,7 +95,7 @@ const CreateGameForm  = () => {
         <textarea className='create_form-textarea' id="notes" {...register('notes')} rows="3" />
       </div>
       {errors.notes && <span className="error">{errors.notes.message}</span>}
-      <Button type="submit" text="Enviar" className='create-button'/>
+      <Button type="submit" className='create-button' text={mutation.isPending ? 'Creando...' : 'Añadir juego'} disabled={mutation.isPending} />
     </form>
   );
 }

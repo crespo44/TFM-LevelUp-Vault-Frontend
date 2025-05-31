@@ -39,6 +39,27 @@ label{
   font-size: 1rem;
 }
 
+.Toastify__toast {
+  background-color: #371948;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.Toastify__toast--error .Toastify__progress-bar {
+  background: #a30b40; 
+}
+
+
+
+.Toastify__toast--success {
+  background-color: #342169; 
+}
+.Toastify__toast--success .Toastify__progress-bar {
+  background: #7227f2; 
+}
+
 @media screen and (min-width: 768px) {
   label{
     font-size: 1.1rem;

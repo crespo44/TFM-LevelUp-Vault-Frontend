@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import RegisterSchema from './registerValidation';
 import Button from "../Buttons/Button";
 import userService from '../../services/userService'; 
-
+import emailService from '../../services/emailService';
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
@@ -11,16 +13,25 @@ const RegisterForm = () => {
     resolver: yupResolver(RegisterSchema)
   });
 
-  const onSubmit = async (data) => {
-      try {
-        await userService.createUser(data);
-        console.log("Usuario creado exitosamente");
+  const mutation = useMutation({
+    mutationFn: async (newUser) => {
+      await userService.createUser(newUser);
+      await emailService.sendEmail(newUser);
+    },
+    onSuccess: () => {
+      toast.success("Usuario creado exitosamente");
       reset();
-    } catch (error) {
-      console.error("Error al crear el usuario:", error);
+    },
+    onError: (error) => {
+      console.error('Error crear el usuario o enviar correo', error)
+      toast.error("Error al crear el usuario");
     }
-  };
+  });
 
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
+  
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <h2>Formulario de Registro</h2>
@@ -50,17 +61,17 @@ const RegisterForm = () => {
             {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
       </div>
       <div className="register_form-group">
-        <label htmlFor="role">Rol</label>
-        <select name="role" {...register('rol')}>
+        <label htmlFor="rol">Rol</label>
+        <select name="rol" {...register('rol')}>
           <option value="">Seleccionar</option>
           <option value="administrador">Administrador</option>
           <option value="usuario">Usuario</option>
         </select>
-        {errors.role && <span className="error">{errors.role.message}</span>}
+        {errors.rol && <span className="error">{errors.rol.message}</span>}
       </div>
 
       <div className="register-buttons">
-        <Button type="submit" text="Enviar" />
+        <Button type="submit" text={mutation.isPending ? 'Creando...' : 'Crear cuenta'} disabled={mutation.isPending} />
       </div>
     </form>
   );

@@ -3,13 +3,16 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { setCredentials } from "../../slices/authSlice";
 import LoginSchema from './loginValidation';
 import Card from "../Card/Card";
 import Button from '../Buttons/Button';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import userService from "../../services/userService";
-import { setCredentials } from "../../slices/authSlice";
 import "./LoginForm.css";
+
 
 const LoginForm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,22 +22,24 @@ const LoginForm = () => {
     resolver: yupResolver(LoginSchema)
   });
 
-  const onSubmit = async (data) => {
-    try {
-      const response = await userService.login(data);
-      const { token, username, rol } = response.data;
-
-      dispatch(setCredentials({ token, username, rol }));
-
-      sessionStorage.setItem("auth", JSON.stringify({ token, username, rol }));
-
+    const mutation = useMutation({
+    mutationFn: (credentials) => userService.login(credentials),
+    onSuccess: (response) =>{
+      const { token, username, name, email, rol } = response.data;
+      dispatch(setCredentials({ token, username, name, email, rol }));
+      sessionStorage.setItem("auth", JSON.stringify({ token, username, name, email, rol }));
       navigate("/home");
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      alert("Credenciales inválidas");
-    }
+      reset();
+    },
+    onError:(error) =>{
+      console.error('Error al ingresar usuario', error)
+      toast.error('Credenciales inválidas');
+      reset();
+    },
+  })
 
-    reset();
+  const onSubmit = (data) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -54,7 +59,7 @@ const LoginForm = () => {
             {errors.password && <p className="error">{errors.password.message}</p>}
           </div>
           <div className="login-buttons">
-            <Button type="submit" text="Iniciar sesión" />
+            <Button type="submit" text={mutation.isPending ? "Iniciando..." : "Iniciar sesión"} disabled={mutation.isPending} />
             <Button type="button" text="Registrarse" onClick={() => setShowModal(true)} />
           </div>
         </form>
