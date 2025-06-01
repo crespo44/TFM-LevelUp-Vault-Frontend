@@ -29,8 +29,8 @@ const Navbar = () => {
       </button>
 
       <div className={`navbar__links ${menuOpen ? 'active' : ''}`}>
-        <Link to="/home" onClick={() => setMenuOpen(false)}>Mis juegos</Link>
-        <Link to="/addGame" onClick={() => setMenuOpen(false)}>Agregar juego</Link>
+        <Link to="/home" onClick={() => setMenuOpen(false)}>Inicio</Link>
+        <Link to="/games" onClick={() => setMenuOpen(false)}>Juegos</Link>
         <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
 
 

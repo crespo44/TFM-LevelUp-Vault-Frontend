@@ -6,6 +6,10 @@
   width: 100%;
   max-width: 400px;
 }
-.wide-card{
+.wide-card {
   max-width: 700px;
+}
+
+.home-card-content {
+  max-width: none;
 }

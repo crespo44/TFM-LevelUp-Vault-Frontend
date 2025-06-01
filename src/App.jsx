@@ -7,8 +7,8 @@ import MainLayout from './layout/MainLayout/MainLayout';
 
 
 import Login from './pages/Login/Login';
-//import Home from './pages/Home/Home';
-import AddGame from './pages/AddGame/AddGame';
+import Home from './pages/Home/Home';
+import Games from './pages/Games/Games';
 import Contact from './pages/Contact/Contact';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
@@ -27,7 +27,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route element={<MainLayout />}>
-            <Route path="/addGame" element={<AddGame />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/games" element={<Games />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

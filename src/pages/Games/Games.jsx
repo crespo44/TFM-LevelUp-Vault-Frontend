@@ -1,8 +1,8 @@
 import Card from '../../components/Card/Card';
 import CreateGameForm from '../../components/CreateGameForm/CreateGameForm';
-import './AddGame.css';
+import './Games.css';
 
-const AddGame = () => {
+const Games = () => {
   return (
     <div className="add-game-page">
       <h1 className="add-game-title">🎮Añadir nuevo juego a tu colección</h1>
@@ -14,4 +14,4 @@ const AddGame = () => {
   );
 };
 
-export default AddGame;
+export default Games;
