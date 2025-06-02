@@ -17,7 +17,7 @@ const Home = () => {
         {
           title: "Juegos guardados",
           img: misJuegosImg,
-          link: "/juegos",
+          link: "/games",
           desc: "Gestiona todos los juegos registrados. Busca, edita y elimina cualquier videojuego de la plataforma como administrador.",
           extra: "Puedes ver los usuarios creadores y acceder a todas las funcionalidades avanzadas.",
           imgRight: false
@@ -25,7 +25,7 @@ const Home = () => {
         {
           title: "Noticias",
           img: noticiasImg,
-          link: "/noticias",
+          link: "/news",
           desc: "Últimas noticias sobre videojuegos actualizadas cada día. Mantente al día con los lanzamientos más recientes y tendencias del sector.",
           extra: "Haz clic para ver análisis, trailers y novedades.",
           imgRight: true
@@ -33,7 +33,7 @@ const Home = () => {
         {
           title: "Usuarios",
           img: usuariosImg,
-          link: "/usuarios",
+          link: "/contact",
           desc: "Gestiona los usuarios registrados. Revisa su actividad, cambia roles o elimina cuentas si es necesario.",
           extra: "Accede al listado y busca por nombre, correo o rol.",
           imgRight: false

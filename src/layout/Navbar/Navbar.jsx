@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '/LUVLogo.webp';
 import Button from '../../components/Buttons/Button';
@@ -10,12 +10,15 @@ import userService from "../../services/userService";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const username = useSelector((state) => state.auth.username);
+  const rol = useSelector((state) => state.auth.rol); 
 
   const handleLogout = () => {
     setMenuOpen(false);
     dispatch(logout());
     userService.logout(); 
+    navigate('/');
   };
 
   return (
@@ -30,8 +33,14 @@ const Navbar = () => {
 
       <div className={`navbar__links ${menuOpen ? 'active' : ''}`}>
         <Link to="/home" onClick={() => setMenuOpen(false)}>Inicio</Link>
-        <Link to="/games" onClick={() => setMenuOpen(false)}>Juegos</Link>
-        <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
+
+        {rol==='administrador' ? 
+        <Link to="/games" onClick={() => setMenuOpen(false)}>Juegos</Link> : 
+        <Link to="/games" onClick={() => setMenuOpen(false)}>Mis juegos</Link>
+        }
+        {rol==='administrador' ? 
+        <Link to="/contact" onClick={() => setMenuOpen(false)}>Usuarios</Link>:
+        <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>}
 
 
         <div className='navbar__user-mobile'>

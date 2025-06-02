@@ -28,14 +28,13 @@ const userService = {
 
   createUser: (newUser) => userAPI.post('/', newUser),
 
-  updateUser: (id) => userAPI.put(`/${id}`),
+  search: (params) => userAPI.get('/search', { params }),
+
+  updateUser: (id, userData) => userAPI.put(`/${id}`, userData),
 
   deleteUser: (id) => userAPI.delete(`/${id}`),
 
-  logout: () => {
-    sessionStorage.removeItem('auth');
-    window.location.href = '/';
-  }
+  logout: () => sessionStorage.removeItem('auth')
 };
 
 export default userService;

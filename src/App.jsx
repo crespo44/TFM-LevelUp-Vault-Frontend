@@ -17,8 +17,8 @@ function App() {
   useEffect(() => {
     const auth = sessionStorage.getItem("auth");
     if (auth) {
-      const { token, username, role } = JSON.parse(auth);
-      dispatch(setCredentials({ token, username, role }));
+      const { token, username, rol } = JSON.parse(auth);
+      dispatch(setCredentials({ token, username, rol }));
     }
   }, [dispatch]);
 

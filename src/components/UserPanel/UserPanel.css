@@ -1,0 +1,119 @@
+.users-panel {
+  padding: 1.5rem 1rem 2.5rem 1rem;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.users-panel-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #a48ef4;
+  margin: 1rem;
+  text-align: center;
+}
+
+.users-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.users-filters input,
+.users-filters select {
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: #282254;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.users-table-container {
+  overflow-x: auto;
+  border-radius: 1.2rem;
+  background: #39205e;
+  box-shadow: 0 4px 18px #0004;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 0.7rem 0.55rem;
+  text-align: left;
+  color: #e7e4f6;
+  border-bottom: 1px solid #453892;
+  font-size: 0.98rem;
+}
+
+.users-table th {
+  font-weight: 600;
+  background: #2a1955;
+  color: #efeafc;
+}
+
+.td-buttons{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem
+}
+
+
+.edit-btn,
+.delete-btn {
+  border-radius: 0.6rem;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+}
+
+
+.delete-btn {
+  background: #c2304b;
+}
+.delete-btn:hover {
+  background: #a01222;
+}
+
+.users-panel-msg {
+  margin: 2rem auto;
+  text-align: center;
+  color: #fff;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.users-panel-msg.error {
+  color: #ff9494;
+}
+
+@media screen and (min-width: 768px) {
+  .users-panel{
+        padding: 0.8rem 0.4rem 2rem 0.4rem;
+  }
+
+  .users-table-container {
+    border-radius: 0.7rem;
+  }
+  .users-table {
+    font-size: 0.93rem;
+    min-width: 400px;
+  }
+}
+@media screen and (min-width: 1024px) {
+    .users-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .users-filters {
+  flex-direction: row;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+}

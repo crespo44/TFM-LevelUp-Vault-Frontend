@@ -15,7 +15,7 @@ const registerSchema = yup.object().shape({
   email: yup
     .string()
     .required('El email es obligatorio')
-    .email('El email debe ser valido'),
+    .email('Formato de email inválido'),
 
   password: yup
     .string()
@@ -32,7 +32,7 @@ const registerSchema = yup.object().shape({
   rol: yup
     .string()
     .required('El estado es obligatorio')
-    .oneOf(['usuario', 'administrador'], 'Estado inválido'),
+    .oneOf(['usuario', 'administrador'], 'Rol invalido'),
 });
 
 export default registerSchema;

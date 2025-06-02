@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import RegisterSchema from './registerValidation';
+import registerSchema from './registerValidation';
 import Button from "../Buttons/Button";
 import userService from '../../services/userService'; 
 import emailService from '../../services/emailService';
@@ -10,7 +10,7 @@ import "./RegisterForm.css";
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
-    resolver: yupResolver(RegisterSchema)
+    resolver: yupResolver(registerSchema)
   });
 
   const mutation = useMutation({
@@ -23,7 +23,7 @@ const RegisterForm = () => {
       reset();
     },
     onError: (error) => {
-      console.error('Error crear el usuario o enviar correo', error)
+      console.error('Error al crear el usuario o enviar correo', error)
       toast.error("Error al crear el usuario");
     }
   });

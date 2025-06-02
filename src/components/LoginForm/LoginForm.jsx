@@ -10,6 +10,7 @@ import LoginSchema from './loginValidation';
 import Card from "../Card/Card";
 import Button from '../Buttons/Button';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import Modal from "../Modal/Modal";  
 import userService from "../../services/userService";
 import "./LoginForm.css";
 
@@ -65,16 +66,9 @@ const LoginForm = () => {
         </form>
       </Card>
 
-      {showModal && (
-        <div className="modal-backdrop">
-          <div className="modal-content">
-            <div className="modal-close">
-              <Button type="button" className="btn-close" text="❌​" onClick={() => setShowModal(false)} />
-            </div>
-            <RegisterForm onClose={() => setShowModal(false)} />
-          </div>
-        </div>
-      )}
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <RegisterForm onClose={() => setShowModal(false)} />
+      </Modal>
     </>
   );
 };
