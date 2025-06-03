@@ -1,0 +1,28 @@
+.game-filters {
+  display: grid;
+  gap: 1rem;
+}
+
+.game-filters input,
+.game-filters select {
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  border: none;
+  background: #2b245f;
+  color: #e0e0e0;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.game-filters button {
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+}
+
+/* Escritorio */
+@media screen and (min-width: 1024px) {
+  .game-filters {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    align-items: center;
+  }
+}

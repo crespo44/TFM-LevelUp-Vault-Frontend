@@ -24,7 +24,7 @@
   padding: 0.45rem 0.9rem;
   border-radius: 0.65rem;
   border: none;
-  background: #282254;
+  background: #2b245f;
   color: #e0e0e0;
   font-size: 1rem;
 }
@@ -85,10 +85,6 @@
   color: #fff;
   font-size: 1.1rem;
   opacity: 0.8;
-}
-
-.users-panel-msg.error {
-  color: #ff9494;
 }
 
 @media screen and (min-width: 768px) {

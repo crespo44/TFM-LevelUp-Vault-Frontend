@@ -6,11 +6,12 @@ import StarsInput from '../StarsInput/StarsInput';
 import './CreateGameForm.css';
 import Button from '../Buttons/Button';
 import gameService from '../../services/gameService';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 const CreateGameForm  = () => {
   const [rating, setRating] = useState(0);
+  const queryClient = useQueryClient();
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(createGameSchema),  
@@ -22,7 +23,8 @@ const CreateGameForm  = () => {
     onSuccess: () =>{
       toast.success('El juego ha sido añadido');
       reset();
-      setRating(0)
+      setRating(0);
+      queryClient.invalidateQueries(["games"]);
     },
     onError:(error) =>{
       console.error('Error al añadir el juego', error)

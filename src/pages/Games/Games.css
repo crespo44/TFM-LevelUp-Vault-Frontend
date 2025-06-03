@@ -1,30 +1,109 @@
-.add-game-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+.games-page {
   padding: 2rem 1rem;
   min-height: 100vh;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.add-game-title {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 0.4rem;
+.games-header h2 {
   color: #a48ef4;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
-.add-game-subtitle {
+.games-header p {
+  color: #ccc;
   font-size: 1rem;
   text-align: center;
-  margin-bottom: 2rem;
-  color: #ccc;
 }
 
-.add-game-description {
-  color: #ccc;
+.games-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.games-form {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.games-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filters-container {
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.cards-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.no-games-message {
+  text-align: center;
+  margin-top: 2rem;
   font-size: 1.1rem;
-  margin-bottom: 2rem;
-  max-width: 700px;
+  color: #999;
+}
+
+/* Escritorio */
+@media screen and (min-width: 1024px) {
+  .games-page {
+    padding: 2rem 3rem;
+  }
+
+  .games-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .games-header p {
+    font-size: 1.1rem;
+  }
+
+  .games-grid.usuario {
+    grid-template-columns: 1fr 2fr;
+    align-items: flex-start;
+  }
+
+  .games-grid.administrador {
+    grid-template-columns: 1fr;
+  }
+  .games-grid.administrador .game-filters {
+    display: flex;
+    width: fit-content;      
+    margin: 0 auto; 
+  }
+
+  .game-filters input,
+  .game-filters select,
+  .game-filters button {
+    width: auto;              
+  }
+
+  .games-form {
+    max-width: 400px;
+  }
+
+  .cards-container.usuario {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards-container.administrador {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

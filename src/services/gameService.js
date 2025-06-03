@@ -1,4 +1,6 @@
 import axios from 'axios';
+import store from '../store';
+import { logout } from '../slices/authSlice';
 
 const BASE_GAME_URL= import.meta.env.VITE_APP_BASE_GAME_URL
 
@@ -25,9 +27,24 @@ const gameService = {
   createGame: (gameData) => gameAPI.post('/', gameData),
   updateGame: (id, updatedData) => gameAPI.put(`/${id}`, updatedData),
   deleteGame: (id) => gameAPI.delete(`/${id}`),
-
-  getAllGames: () => gameAPI.get('/admin/all'),
+  getFilteredGames: (params) => gameAPI.get('/', { params }),
+  getAllGames: (params) => gameAPI.get('/admin/all', { params }),
   adminDeleteGame: (id) => gameAPI.delete(`/admin/${id}`)
 };
+
+gameAPI.interceptors.response.use(
+  response => response,
+  error => {
+    const status = error?.response?.status;
+    const message = error?.response?.data?.message;
+
+    if (status === 401 || message === "Token expirado") {
+      store.dispatch(logout());
+      window.location.href = "/";
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default gameService;

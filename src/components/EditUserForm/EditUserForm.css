@@ -46,7 +46,7 @@
 }
 
 
-/* Tablet y movil */
+/* Tablet y Escritorio */
 @media screen and (min-width: 768px) {
   .edit-form {
     gap: 1.2rem;

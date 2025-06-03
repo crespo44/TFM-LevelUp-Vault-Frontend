@@ -70,15 +70,6 @@ const EditUserForm = ({ user, onClose }) => {
         <input type="email" name="email" {...register("email")}/>
         {errors.email && <span className="error">{errors.email.message}</span>}
       </div>
-      <div className="form-group">
-        <label htmlFor="rol">Rol:</label>
-        <select name="rol" {...register("rol")}>
-          <option value="">Seleccionar</option>
-          <option value="administrador">Administrador</option>
-          <option value="usuario">Usuario</option>
-        </select>
-        {errors.rol && <span className="error">{errors.rol.message}</span>}
-      </div>
 
       <div className="edit-buttons">
         <Button type="submit" text={updateMutation.isLoading ? "Guardando..." : "Guardar"} disabled={updateMutation.isLoading} />

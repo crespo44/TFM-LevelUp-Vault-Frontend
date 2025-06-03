@@ -16,10 +16,6 @@ const editSchema = yup.object().shape({
     .string()
     .required('El email es obligatorio')
     .email('Formato de email inválido'),
-  rol: yup
-    .string()
-    .required('El rol es obligatorio')
-    .oneOf(['usuario', 'administrador'], 'Rol inválido'),
 });
 
 export default editSchema;
