@@ -44,12 +44,16 @@
 /*--- Tablet y Escritorio--- */
 @media screen and (min-width: 768px) {
   .custom-button {
-    min-width: 100px;
+
     font-size: 1rem;
   }
   .btn-contact{
     width: auto;
     max-width: 100px;
+  }
+  .btn-uploadImage{
+    width: auto;
+    max-width: 150px;
   }
   .create-button{
     width: auto;
@@ -57,6 +61,9 @@
   }
   .btn-nf{
     max-width: 100px;
+  }
+  .imagen-delete-button{
+    font-size: 1rem;
   }
   .custom-button:hover {
     background-color: #6f11da;

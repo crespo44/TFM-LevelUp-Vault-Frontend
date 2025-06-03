@@ -1,0 +1,71 @@
+.image-gallery {
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
+.image-gallery h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.image-gallery input[type="file"] {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.image-gallery .custom-button-upload {
+  margin-bottom: 1rem;
+}
+
+.image-list {
+  margin-top: 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.image-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-item img {
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  height: 150px;
+}
+
+.image-delete-button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  border: none;
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+
+  .image-item img {
+    object-fit:cover;
+    margin-bottom: 0.5rem;
+    width: 140px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    height: 140px;
+  }
+
+
+}
+

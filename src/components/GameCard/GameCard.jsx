@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from 'react-toastify';
 import Card from "../Card/Card";
 import Button from "../Buttons/Button";
 import Modal from "../Modal/Modal";
 import gameService from "../../services/gameService";
 import EditGameForm from "../EditGameForm/EditGameForm";
+import ImageGallery from '../ImageGallery/ImageGallery';
 import defaultImage from '../../assets/default-gamepad.webp'
-import { toast } from 'react-toastify';
 import "./GameCard.css";
 
 const GameCard = ({ game, rol }) => {
@@ -77,7 +78,7 @@ const GameCard = ({ game, rol }) => {
                         <p><span className="label">Notas:</span> {notes}</p>
                     </div>
                     <div className="meta-row">
-                        <Button text="Subir Imagen" onClick={() => alert("Subida de imagen aún no implementada")} />
+                        <ImageGallery gameId={game._id} rol={rol} />
                     </div>
                     <div className="game-actions">
                         <Button text="Editar" onClick={() => setIsModalOpen(true)} />

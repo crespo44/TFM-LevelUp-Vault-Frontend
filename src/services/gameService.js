@@ -11,6 +11,21 @@ const gameAPI = axios.create({
   }
 });
 
+gameAPI.interceptors.response.use(
+  response => response,
+  error => {
+    const status = error?.response?.status;
+    const message = error?.response?.data?.message;
+
+    if (status === 401 || message === "Token expirado") {
+      store.dispatch(logout());
+      window.location.href = "/";
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 gameAPI.interceptors.request.use((config) => {
   const auth = sessionStorage.getItem('auth');
   const token = auth ? JSON.parse(auth).token : null;
@@ -31,20 +46,5 @@ const gameService = {
   getAllGames: (params) => gameAPI.get('/admin/all', { params }),
   adminDeleteGame: (id) => gameAPI.delete(`/admin/${id}`)
 };
-
-gameAPI.interceptors.response.use(
-  response => response,
-  error => {
-    const status = error?.response?.status;
-    const message = error?.response?.data?.message;
-
-    if (status === 401 || message === "Token expirado") {
-      store.dispatch(logout());
-      window.location.href = "/";
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 export default gameService;
