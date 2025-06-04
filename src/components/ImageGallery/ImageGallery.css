@@ -1,5 +1,4 @@
 .image-gallery {
-  padding: 1rem;
   margin-top: 1rem;
   border-radius: 8px;
 }
@@ -88,6 +87,9 @@
     width: 140px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.5);
     height: 140px;
+  }
+  .image-gallery {
+    padding: 1rem;
   }
 
 
