@@ -61,6 +61,49 @@
   color: #999;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 1rem auto 0;
+}
+
+.pagination button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: #994bff;
+  border: 2px solid #431dcc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #431dcc;
+  color: white;
+}
+
+.pagination button.active {
+  background-color: #5d17c6;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+   .pagination button {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+  }
+}
+
 /* Escritorio */
 @media screen and (min-width: 1024px) {
   .games-page {
@@ -105,5 +148,9 @@
 
   .cards-container.administrador {
     grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .pagination {
+    justify-content: flex-end;
   }
 }

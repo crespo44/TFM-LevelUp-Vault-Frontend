@@ -1,6 +1,6 @@
 import "./StarsInput.css";
 
-const StarsInput = ({ rating, onChange }) => {
+const StarsInput = ({ value=0, onChange }) => {
   const handleClick = (val) => {
     onChange(val); 
   };
@@ -10,7 +10,7 @@ const StarsInput = ({ rating, onChange }) => {
         <span
           key={`star-${val}`}
           onClick={() => handleClick(val)}
-          className={val <= rating ? 'star filled' : 'star'}
+          className={val <= value ? 'star filled' : 'star'}
           role="button"
           aria-label={`Estrella ${val}`}
         >

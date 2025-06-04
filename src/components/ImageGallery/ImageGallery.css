@@ -10,10 +10,34 @@
   color: #ccc;
 }
 
-.image-gallery input[type="file"] {
-  display: block;
-  margin-bottom: 0.5rem;
+.file-select {
+  position: relative;
+  display: inline-block;
 }
+
+.file-select::before {
+  background-color: #761aee;
+  box-shadow: 2px 3px 2px #3b149c;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  content: 'Seleccionar imagen'; 
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}
+
 
 .image-gallery .custom-button-upload {
   margin-bottom: 1rem;

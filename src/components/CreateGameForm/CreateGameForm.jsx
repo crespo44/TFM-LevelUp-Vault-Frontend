@@ -1,5 +1,4 @@
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import createGameSchema from './createGameValidation';
 import StarsInput from '../StarsInput/StarsInput';
@@ -10,12 +9,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 const CreateGameForm  = () => {
-  const [rating, setRating] = useState(0);
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const { register, handleSubmit, formState: { errors },  control, reset } = useForm({
     resolver: yupResolver(createGameSchema),  
-    defaultValues: { genre: [], platform: []}
+    defaultValues: { genre: [], platform: [], rating: 0}
   });
 
   const mutation = useMutation({
@@ -23,7 +21,6 @@ const CreateGameForm  = () => {
     onSuccess: () =>{
       toast.success('El juego ha sido añadido');
       reset();
-      setRating(0);
       queryClient.invalidateQueries(["games"]);
     },
     onError:(error) =>{
@@ -33,7 +30,6 @@ const CreateGameForm  = () => {
   })
 
   const onSubmit = (data) => {
-    data.rating = rating;
     mutation.mutate(data);
   };
 
@@ -89,7 +85,13 @@ const CreateGameForm  = () => {
       {errors.status && <span className="error">{errors.status.message}</span>}
       <div className="create_form-field">
         <label htmlFor="rating">Valoración</label>
-        <StarsInput rating={rating} onChange={(value) => setRating(value)} />
+        <Controller
+          name="rating"
+          control={control}
+          render={({ field }) => (
+            <StarsInput value={field.value} onChange={field.onChange} />
+          )}
+        />
       </div>
       {errors.rating && <span className="error">{errors.rating.message}</span>}
       <div className="create_form-field">

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -11,12 +11,12 @@ import "./EditGameForm.css";
 
 const EditGameForm = ({ game, onClose }) => {
   const queryClient = useQueryClient();
-  const [rating, setRating] = useState(0);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
     reset
   } = useForm({
     resolver: yupResolver(editGameSchema),
@@ -26,7 +26,8 @@ const EditGameForm = ({ game, onClose }) => {
       genre: [],
       platform: [],
       status: "",
-      notes: ""
+      notes: "",
+      rating: 0 
     },
   });
 
@@ -38,9 +39,9 @@ const EditGameForm = ({ game, onClose }) => {
         genre: game.genre || [],
         platform: game.platform || [],
         status: game.status || "",
-        notes: game.notes || ""
+        notes: game.notes || "",
+        rating: game.rating || 0
       });
-      setRating(game.rating || 0);
     }
   }, [game, reset]);
 
@@ -57,7 +58,6 @@ const EditGameForm = ({ game, onClose }) => {
   });
 
   const onSubmit = (data) => {
-    data.rating = rating;
     updateMutation.mutate({ id: game._id, gameData: data });
   };
 
@@ -118,7 +118,13 @@ const EditGameForm = ({ game, onClose }) => {
 
       <div className="form-group">
         <label htmlFor="rating">Valoración:</label>
-        <StarsInput rating={rating} onChange={(value) => setRating(value)} />
+          <Controller
+            name="rating"
+            control={control}
+            render={({ field }) => (
+              <StarsInput value={field.value} onChange={field.onChange} />
+            )}
+          />
       </div>
 
       <div className="form-group">

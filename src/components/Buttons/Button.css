@@ -16,6 +16,11 @@
   box-shadow: 2px 0px 4px #321188;
 }
 
+.custom-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .btn-close{
   min-width: unset !important;
   width: 32px !important;
@@ -29,6 +34,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn-uploadImage{
+  margin-top: 15px;
 }
 
 .logout-icon {
@@ -54,6 +63,7 @@
   .btn-uploadImage{
     width: auto;
     max-width: 150px;
+    margin-left: 15px;
   }
   .create-button{
     width: auto;

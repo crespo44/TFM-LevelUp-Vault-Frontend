@@ -79,10 +79,13 @@ const ImageGallery = ({ gameId, rol }) => {
             {rol === 'usuario' && (
                 <>
                     <div className="file-select" id="src-file1" >
-                        <input type="file" className='btn-addFile' onChange={e => setSelectedFile(e.target.files[0])} />
+                        <input type="file" className='btn-addFile' onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            setSelectedFile(file || null);
+                        }} />
                     </div>
 
-                    <Button className='btn-uploadImage' text="Subir Imagen" onClick={handleUpload} />
+                    <Button className='btn-uploadImage' text="Subir Imagen" onClick={handleUpload} disabled={!selectedFile} />
                 </>
             )}
             {isLoading && <p>Cargando imágenes...</p>}
