@@ -17,9 +17,10 @@
 
 .game-image img {
   width: 100%;
-  height: auto;
+  height: 300px;
   border-radius: 4px;
   object-fit: cover;
+  border: 3px groove #dbaf58
 }
 
 .game-headings {
@@ -114,8 +115,8 @@
   }
 
   .game-image img {
-    width: 150px;
-    height: auto;
+    width: 180px;
+    height: 130px;
   }
 
   .game-headings {

@@ -12,11 +12,11 @@ import "./GameCard.css";
 
 const GameCard = ({ game, rol }) => {
     const queryClient = useQueryClient();
-    const { title, description, genre, platform, status, rating, notes, imageUrl } = game;
+    const { title, description, genre, platform, status, rating, notes, imageUrl, rawgImage } = game;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const imageToShow = imageUrl || defaultImage;
+    const imageToShow = rawgImage || imageUrl || defaultImage;
 
     const formatArrayText = (value) => {
         return Array.isArray(value) ? value.join(", ") : value || "-";

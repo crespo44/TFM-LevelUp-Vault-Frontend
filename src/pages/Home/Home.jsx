@@ -6,6 +6,7 @@ import misJuegosImg from "../../assets/mis-juegos.webp";
 import noticiasImg from "../../assets/noticias.webp";
 import contactoImg from "../../assets/contacto.webp";
 import usuariosImg from "../../assets/usuarios.webp";
+import NewsGame from "../../components/NewsGame/NewsGame";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -25,7 +26,7 @@ const Home = () => {
         {
           title: "Noticias",
           img: noticiasImg,
-          link: "/news",
+          link: "#news",
           desc: "Últimas noticias sobre videojuegos actualizadas cada día. Mantente al día con los lanzamientos más recientes y tendencias del sector.",
           extra: "Haz clic para ver análisis, trailers y novedades.",
           imgRight: true
@@ -51,7 +52,7 @@ const Home = () => {
         {
           title: "Noticias",
           img: noticiasImg,
-          link: "/news",
+          link: "#news",
           desc: "Descubre todas las novedades del mundo gamer. Desde nuevos lanzamientos hasta ofertas y reseñas.",
           extra: "Explora noticias, trailers y próximos lanzamientos destacados.",
           imgRight: true
@@ -74,7 +75,10 @@ const Home = () => {
             <div
                 key={section.title}
                 className={`home-card-row${section.imgRight ? " img-right" : ""}`}
-                onClick={() => navigate(section.link)}
+                onClick={() => {
+                  section.link === "#news" ? document.getElementById("news")?.scrollIntoView({ behavior: 'smooth' })
+                  : navigate(section.link)
+                }}
                 tabIndex={0}
                 role="button"
                 aria-label={section.title}
@@ -90,6 +94,10 @@ const Home = () => {
             </div>
             ))}
       </section>
+      <section className="home-news-section">
+      <h2 className="home-news-title" id="news">Noticias destacadas</h2>
+      <NewsGame />
+    </section>
     </>
   );
 };

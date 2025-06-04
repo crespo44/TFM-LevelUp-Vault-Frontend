@@ -72,6 +72,17 @@
   font-size: 0.91rem;
   color: #c6bdd8;
 }
+.home-news-section {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.home-news-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #a48ef4;
+}
 
 /* Tablet y Escritorio */
 @media (min-width: 768px) {

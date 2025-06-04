@@ -5,6 +5,7 @@ import StarsInput from '../StarsInput/StarsInput';
 import './CreateGameForm.css';
 import Button from '../Buttons/Button';
 import gameService from '../../services/gameService';
+import rawgService from '../../services/rawgService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
@@ -29,7 +30,14 @@ const CreateGameForm  = () => {
     },
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    try {
+      const rawgImage = await rawgService.searchGame(data.title);
+      data.rawgImage = rawgImage || "";
+    } catch (error) {
+      console.error("No se pudo obtener la imagen desde RAWG:", error);
+      data.rawgImage = "";
+    }
     mutation.mutate(data);
   };
 
@@ -99,7 +107,7 @@ const CreateGameForm  = () => {
         <textarea className='create_form-textarea' id="notes" {...register('notes')} rows="3" />
       </div>
       {errors.notes && <span className="error">{errors.notes.message}</span>}
-      <Button type="submit" className='create-button' text={mutation.isPending ? 'Creando...' : 'Añadir juego'} disabled={mutation.isPending} />
+      <Button type="submit" className='create-button' text={mutation.isLoading ? 'Creando...' : 'Añadir juego'} disabled={mutation.isPending} />
     </form>
   );
 }
