@@ -17,7 +17,7 @@
 
 .game-image img {
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 4px;
   object-fit: cover;
   border: 3px groove #dbaf58
