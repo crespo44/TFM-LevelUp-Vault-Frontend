@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from 'react-toastify';
 import Card from "../Card/Card";
@@ -8,6 +8,7 @@ import gameService from "../../services/gameService";
 import EditGameForm from "../EditGameForm/EditGameForm";
 import ImageGallery from '../ImageGallery/ImageGallery';
 import defaultImage from '../../assets/default-gamepad.webp'
+import imageService from "../../services/imageService";
 import "./GameCard.css";
 
 const GameCard = ({ game, rol }) => {
@@ -40,6 +41,7 @@ const GameCard = ({ game, rol }) => {
         onSuccess: () => {
             toast.success('El juego ha sido eliminado');
             queryClient.invalidateQueries(["games"]);
+
         },
         onError: (error) => {
             toast.error('Error al añadir el juego');
@@ -47,8 +49,21 @@ const GameCard = ({ game, rol }) => {
         }
     });
 
-    const handleDelete = () => {
-            deleteMutation.mutate();
+    const imageRefs = useRef([]);
+
+    const handleDelete = async () => {
+        try {
+            const publicIds = imageRefs.current;
+
+            await Promise.all(
+                publicIds.map(id => imageService.deleteImage(id))
+            );
+
+                deleteMutation.mutate();
+            } catch (err) {
+                toast.error("Error al eliminar imágenes del juego");
+                console.error("❌ Fallo eliminando imágenes antes de borrar el juego:", err);
+            }
         };
 
     return (
@@ -78,7 +93,9 @@ const GameCard = ({ game, rol }) => {
                         <p><span className="label">Notas:</span> {notes}</p>
                     </div>
                     <div className="meta-row">
-                        <ImageGallery gameId={game._id} rol={rol} />
+                        <ImageGallery gameId={game._id} rol={rol} onPublicIdsReady={(ids) =>{
+                            imageRefs.current = ids;
+                        }} />
                     </div>
                     <div className="game-actions">
                         <Button text="Editar" onClick={() => setIsModalOpen(true)} />

@@ -40,7 +40,7 @@ imageAPI.interceptors.response.use(
 const imageService = {
   uploadImage: (gameId, formData) => imageAPI.post(`/upload/${gameId}`, formData),
   listImages: (gameId) => imageAPI.get(`/list/${gameId}`),
-  deleteImage: (gameId, filename) => imageAPI.delete(`/delete/${gameId}/${filename}`),
+  deleteImage: (publicId) => imageAPI.delete(`/delete`, { params: { publicId } }),
   downloadImage: (gameId, filename) => imageAPI.get(`/download/${gameId}/${filename}`, { responseType: 'blob' })
 };
 

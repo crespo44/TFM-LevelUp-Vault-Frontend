@@ -1,13 +1,13 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import imageService from '../../services/imageService';
 import { toast } from 'react-toastify';
 import Button from '../Buttons/Button';
 import './ImageGallery.css';
 
-const ImageGallery = ({ gameId, rol }) => {
+const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
     const queryClient = useQueryClient();
-    const [imageURLs, setImageURLs] = useState({});
+    const [localImages, setLocalImages] = useState([]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ['images', gameId],
@@ -17,10 +17,15 @@ const ImageGallery = ({ gameId, rol }) => {
         },
         enabled: !!gameId,
     });
-
-    const images = useMemo(() => (
-        Array.isArray(data?.files) ? data.files : []
-    ), [data]);
+    
+    useEffect(() => {
+        if (Array.isArray(data?.files)) {
+            setLocalImages(data.files);
+            if (typeof onPublicIdsReady === 'function') {
+                onPublicIdsReady(data.files.map(img => img.publicId));
+            }
+        }
+    }, [data, onPublicIdsReady]);
 
     const uploadMutation = useMutation({
         mutationFn: (file) => {
@@ -28,15 +33,19 @@ const ImageGallery = ({ gameId, rol }) => {
             formData.append('file', file);
             return imageService.uploadImage(gameId, formData);
         },
-        onSuccess: () => {
+        onSuccess: (response) => {
             toast.success("Imagen subida correctamente");
-            queryClient.invalidateQueries({ queryKey: ['images', gameId] });
+            const newImage = {
+            publicId: response.data.publicId,
+            url: `${response.data.url}?t=${Date.now()}`
+        };
+        setLocalImages(prev => [...prev, newImage]);
         },
         onError: () => toast.error("Error al subir imagen")
     });
 
     const deleteMutation = useMutation({
-        mutationFn: (filename) => imageService.deleteImage(gameId, filename),
+        mutationFn: (publicId) => imageService.deleteImage(publicId),
         onSuccess: () => {
             toast.success("Imagen eliminada");
             queryClient.invalidateQueries({ queryKey: ['images', gameId] });
@@ -44,26 +53,6 @@ const ImageGallery = ({ gameId, rol }) => {
         onError: () => toast.error("Error al eliminar imagen")
     });
 
-    useEffect(() => {
-        const loadImages = async () => {
-            const urls = {};
-            for (const img of images) {
-                try {
-                    const res = await imageService.downloadImage(gameId, img);
-                    const url = URL.createObjectURL(res.data);
-                    urls[img] = url;
-                } catch (err) {
-                    console.error("Error cargando imagen:", img, err);
-                }
-            }
-            setImageURLs(urls);
-            return () => Object.values(urls).forEach(url => URL.revokeObjectURL(url));
-        };
-
-        if (images.length) {
-            loadImages();
-        }
-    }, [images, gameId]);
 
     return (
         <div className="image-gallery">
@@ -71,11 +60,12 @@ const ImageGallery = ({ gameId, rol }) => {
             {rol === 'usuario' && (
                 <>
                     <div className="file-select" id="src-file1" >
-                        <input type="file" className='btn-addFile' onChange={(e) => {
+                        <input type="file" className='btn-addFile' disabled={uploadMutation.isPending} onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (file) {
                                 uploadMutation.mutate(file);
                             }
+                            e.target.value = null;
                         }} />
                     </div>
                 </>
@@ -84,13 +74,12 @@ const ImageGallery = ({ gameId, rol }) => {
             {isError && <p>Error al cargar imágenes.</p>}
 
             <div className="image-list">
-                {images.map(img => (
-                    <div key={img} className="image-item">
-                        <img
-                            src={imageURLs[img]}
-                            alt={img}
-                        />
-                        <Button text="❌" className="image-delete-button" onClick={() => deleteMutation.mutate(img)} />
+                {localImages.map((img) => (
+                    <div key={img.publicId} className="image-item">
+                        <img src={img.url} alt={`Imagen subida`} />
+                        <Button text="❌" className="image-delete-button"   onClick={() => {
+                            deleteMutation.mutate(img.publicId);
+                        }} />
                     </div>
                 ))}
             </div>

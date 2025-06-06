@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: '🧾 ¿Puedo subir imágenes de mis juegos?',
-    answer: 'Sí, puedes subir imágenes adicionales en cualquier momento desde la sección de detalles del juego.'
+    answer: 'Sí, puedes subir imágenes en cualquier momento desde el boton subir imagen, pero suelen tardar en subir la primera vez'
   },
   {
     question: '🔐 ¿Mis datos están protegidos?',
