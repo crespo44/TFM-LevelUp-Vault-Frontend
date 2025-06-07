@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import gameService from "../../services/gameService";
@@ -6,6 +6,7 @@ import Card from '../../components/Card/Card';
 import CreateGameForm from '../../components/CreateGameForm/CreateGameForm';
 import GamesFilters from "../../components/GamesFilter/GamesFilter";
 import GameCard from "../../components/GameCard/GameCard";
+import Button from "../../components/Buttons/Button";
 import './Games.css';
 
 const Games = () => {
@@ -13,6 +14,7 @@ const Games = () => {
   const [filters, setFilters] = useState({});
   const [formFilters, setFormFilters] = useState({ title: "", genre: "", platform: "", status: "", user: ""});
   const [currentPage, setCurrentPage] = useState(1);
+  const juegosRef = useRef(null);
   const itemsPerPage = rol === "administrador" ? 6 : 4;
 
   const handleChange = (e) => {
@@ -70,6 +72,19 @@ const Games = () => {
             : "Añade, organiza y explora tus juegos favoritos"}
         </p>
       </div>
+      {rol === "usuario" && (
+        <a
+          className="mobile-link-filtros"
+          href="#filtros"
+          onClick={e => {
+            e.preventDefault();
+            juegosRef.current && juegosRef.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Ir a filtros
+        </a>
+      )}
+
 
       <div className={`games-grid ${rol}`}>
         {rol === "usuario" && (
@@ -81,7 +96,7 @@ const Games = () => {
         )}
 
         <div className="games-content">
-          <div className="filters-container">
+          <div className="filters-container" ref={juegosRef}>
              <GamesFilters
               rol={rol}
               filters={formFilters}
