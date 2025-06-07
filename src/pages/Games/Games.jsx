@@ -73,16 +73,12 @@ const Games = () => {
         </p>
       </div>
       {rol === "usuario" && (
-        <a
+        <Button
           className="mobile-link-filtros"
-          href="#filtros"
-          onClick={e => {
-            e.preventDefault();
-            juegosRef.current && juegosRef.current.scrollIntoView({ behavior: "smooth" });
+          onClick={() => { juegosRef.current && juegosRef.current.scrollIntoView({ behavior: "smooth" });
           }}
-        >
-          Ir a filtros
-        </a>
+          text="Ir a juegos"
+        />
       )}
 
 
