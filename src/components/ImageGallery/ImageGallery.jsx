@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import imageService from '../../services/imageService';
 import { toast } from 'react-toastify';
 import Button from '../Buttons/Button';
 import './ImageGallery.css';
 
 const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
-    const queryClient = useQueryClient();
     const [localImages, setLocalImages] = useState([]);
+    const [deletedIds, setDeletedIds] = useState([]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ['images', gameId],
@@ -20,9 +20,13 @@ const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
     
     useEffect(() => {
         if (Array.isArray(data?.files)) {
-            setLocalImages(data.files);
+            const stampedImages = data.files.map(img => ({
+                ...img,
+                url: `${img.url}?cacheKill=${Date.now()}`
+            }));
+            setLocalImages(stampedImages);
             if (typeof onPublicIdsReady === 'function') {
-                onPublicIdsReady(data.files.map(img => img.publicId));
+                onPublicIdsReady(stampedImages.map(img => img.publicId));
             }
         }
     }, [data, onPublicIdsReady]);
@@ -39,6 +43,7 @@ const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
             publicId: response.data.publicId,
             url: `${response.data.url}?t=${Date.now()}`
         };
+        setDeletedIds(prev => prev.filter(id => id !== newImage.publicId));
         setLocalImages(prev => [...prev, newImage]);
         },
         onError: () => toast.error("Error al subir imagen")
@@ -46,9 +51,12 @@ const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
 
     const deleteMutation = useMutation({
         mutationFn: (publicId) => imageService.deleteImage(publicId),
-        onSuccess: () => {
+        onSuccess: function (_, publicId) {
             toast.success("Imagen eliminada");
-            queryClient.invalidateQueries({ queryKey: ['images', gameId] });
+            setDeletedIds(prev => [...prev, publicId]);
+            setLocalImages(prev =>
+                prev.filter(img => img.publicId !== publicId)
+            );
         },
         onError: () => toast.error("Error al eliminar imagen")
     });
@@ -74,14 +82,16 @@ const ImageGallery = ({ gameId, rol, onPublicIdsReady }) => {
             {isError && <p>Error al cargar imágenes.</p>}
 
             <div className="image-list">
-                {localImages.map((img) => (
-                    <div key={img.publicId} className="image-item">
-                        <img src={img.url} alt={`Imagen subida`} />
-                        <Button text="❌" className="image-delete-button"   onClick={() => {
-                            deleteMutation.mutate(img.publicId);
-                        }} />
-                    </div>
-                ))}
+                {localImages
+                    .filter(img => !deletedIds.includes(img.publicId))
+                    .map((img) => (
+                        <div key={img.publicId} className="image-item">
+                            <img src={img.url} alt={`Imagen subida`} />
+                            <Button text="❌" className="image-delete-button"   onClick={() => {
+                                deleteMutation.mutate(img.publicId);
+                            }} />
+                        </div>
+                    ))}
             </div>
         </div>
     );
