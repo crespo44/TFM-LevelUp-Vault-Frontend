@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import gameService from "../../services/gameService";
@@ -28,11 +28,7 @@ const Games = () => {
     setCurrentPage(1);
   };
 
-  const {
-    data: games = [],
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: games = [], isLoading, isError } = useQuery({
     queryKey: ["games", filters, rol],
     queryFn: async () => {
       try {
@@ -54,6 +50,23 @@ const Games = () => {
   const paginatedGames = games.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(games.length / itemsPerPage);
 
+  const paginationRange = useMemo(() => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const range = [1];
+    const left = Math.max(currentPage - 1, 2);
+    const right = Math.min(currentPage + 1, totalPages - 1);
+
+    if (left > 2) range.push("...");
+    for (let i = left; i <= right; i++) range.push(i);
+    if (right < totalPages - 1) range.push("...");
+    range.push(totalPages);
+
+    return range;
+  }, [currentPage, totalPages]);
+
   useEffect(() => {
     const top = document.querySelector(".cards-container");
     if (top) {
@@ -73,12 +86,14 @@ const Games = () => {
         </p>
       </div>
       {rol === "usuario" && (
-        <Button
-          className="mobile-link-filtros"
-          onClick={() => { juegosRef.current && juegosRef.current.scrollIntoView({ behavior: "smooth" });
-          }}
-          text="Ir a juegos"
-        />
+        <div className="button-filtros-wrapper">
+          <Button
+            className="mobile-link-filtros"
+            onClick={() => { juegosRef.current && juegosRef.current.scrollIntoView({ behavior: "smooth" });
+            }}
+            text="Ir a juegos"
+          />
+        </div>
       )}
 
 
@@ -116,19 +131,36 @@ const Games = () => {
 
           <div className="pagination-container">
             {totalPages > 1 && (
-              <div className="pagination">
-                <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>◀</button>
-                {[...Array(totalPages)].map((_, i) => (
-                  <button
-                    key={i + 1}
-                    className={currentPage === i + 1 ? 'active' : ''}
-                    onClick={() => setCurrentPage(i + 1)}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>▶</button>
+            <div className="pagination">
+              <div className="pagination-pages">
+                {paginationRange.map((page, idx) =>
+                  page === "..."
+                    ? <span key={`ellipsis-${idx}`} className="ellipsis">...</span>
+                    : <button
+                        key={page}
+                        className={currentPage === page ? 'active' : ''}
+                        onClick={() => setCurrentPage(page)}
+                      >
+                        {page}
+                      </button>
+                )}
               </div>
+
+              <div className="pagination-controls">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                >
+                  ◀
+                </button>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                >
+                  ▶
+                </button>
+              </div>
+            </div>
             )}
           </div>
         </div>
