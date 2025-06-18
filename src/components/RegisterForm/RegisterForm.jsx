@@ -29,7 +29,8 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (data) => {
-    mutation.mutate(data);
+    //mutation.mutate(data);
+    mutation.mutate({...data, rol: "usuario"});
   };
   
   return (
@@ -60,7 +61,7 @@ const RegisterForm = () => {
         <input type="password" name="confirm-password"  {...register('confirmPassword')}/>
             {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
       </div>
-      <div className="register_form-group">
+{/*       <div className="register_form-group">
         <label htmlFor="rol">Rol</label>
         <select name="rol" {...register('rol')}>
           <option value="">Seleccionar</option>
@@ -68,7 +69,7 @@ const RegisterForm = () => {
           <option value="usuario">Usuario</option>
         </select>
         {errors.rol && <span className="error">{errors.rol.message}</span>}
-      </div>
+      </div> */}
 
       <div className="register-buttons">
         <Button type="submit" text={mutation.isPending ? 'Creando...' : 'Crear cuenta'} disabled={mutation.isPending} />

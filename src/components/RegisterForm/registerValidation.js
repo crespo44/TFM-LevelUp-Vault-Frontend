@@ -29,10 +29,10 @@ const registerSchema = yup.object().shape({
     .string()
     .required('Confirma tu contraseña')
     .oneOf([yup.ref('password')], 'Las contraseñas deben ser identicas'),
-  rol: yup
+ /*  rol: yup
     .string()
-    .required('El estado es obligatorio')
-    .oneOf(['usuario', 'administrador'], 'Rol invalido'),
+    .required('El rol es obligatorio')
+    .oneOf(['usuario', 'administrador'], 'Rol invalido'), */
 });
 
 export default registerSchema;
