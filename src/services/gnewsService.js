@@ -7,7 +7,6 @@ const gnewsAPI = axios.create({
   baseURL: GNEWS_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
   },
 });
 
