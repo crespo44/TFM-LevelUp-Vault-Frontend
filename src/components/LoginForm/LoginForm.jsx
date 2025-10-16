@@ -44,10 +44,10 @@ const LoginForm = ({ setLoading }) => {
     mutation.mutate(data);
   };
   useEffect(() => {
-    if (!mutation.isPending) {
+    if (!mutation.isPending && (mutation.isError || mutation.isSuccess)) {
       setLoading(false);
     }
-  }, [mutation.isPending, setLoading]);
+  }, [mutation.isPending, mutation.isError, mutation.isSuccess, setLoading]);
 
   return (
     <>
