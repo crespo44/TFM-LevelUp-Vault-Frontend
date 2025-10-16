@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import gnewsService from '../../services/gnewsService';
+import newsDataService from '../../services/newsDataService';
 import Card from '../Card/Card';
 import './NewsGame.css';
 
 const NewsGame = () => {
+    const truncate = (text, maxLength = 200) => text && text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
     const { data: news = [], isLoading, isError } = useQuery({
         queryKey: ['news'],
-        queryFn: gnewsService.getNews,
+        queryFn: newsDataService.getNews,
         staleTime: Infinity,
         cacheTime: Infinity,
         retry: false
@@ -20,18 +21,18 @@ const NewsGame = () => {
                 <Card
                     key={index}
                     className="news-game-card"
-                    onClick={() => window.open(item.url, '_blank')}
+                    onClick={() => window.open(item.link, '_blank')}
                 >
-                    {item.image && (
+                    {(item.image_url || item.image) && (
                         <img
-                            src={item.image}
+                            src={item.image_url || item.image}
                             alt={item.title}
                             className="news-game-image"
                         />
                     )}
                     <div className="news-game-content">
                         <h3 className="news-game-title">{item.title}</h3>
-                        <p className="news-game-description">{item.description}</p>
+                        <p className="news-game-description">{truncate(item.description, 200)}</p>
                     </div>
                 </Card>
             ))}
