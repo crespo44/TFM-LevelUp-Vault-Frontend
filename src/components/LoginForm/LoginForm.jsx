@@ -36,10 +36,8 @@ const LoginForm = ({ setLoading }) => {
       console.error('Error al ingresar usuario', error)
       toast.error('Credenciales inválidas');
       reset();
-    },
-    onSettled:()=> {
       setLoading(false);
-    }
+    },
   })
 
   const onSubmit = (data) => {
