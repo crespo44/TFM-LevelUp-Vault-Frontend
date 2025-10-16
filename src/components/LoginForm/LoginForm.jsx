@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,18 +37,16 @@ const LoginForm = ({ setLoading }) => {
       toast.error('Credenciales inválidas');
       reset();
     },
+    onSettled:()=> {
+      setLoading(false);
+    }
   })
 
   const onSubmit = (data) => {
     setLoading(true);
     mutation.mutate(data);
   };
-  useEffect(() => {
-    if (!mutation.isPending && (mutation.isError || mutation.isSuccess)) {
-      setLoading(false);
-    }
-  }, [mutation.isPending, mutation.isError, mutation.isSuccess, setLoading]);
-
+  
   return (
     <>
       <Card>

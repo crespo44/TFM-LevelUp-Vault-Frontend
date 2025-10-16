@@ -10,14 +10,14 @@
 }
 
 .preloader-logo {
-  align-items: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 1rem;
   animation: bounce 1s infinite ease-in-out;
 }
 
 .preloader-logo img {
-  width: 40vw;
-  max-width: 160px;
+  width: clamp(100px, 25vw, 220px);
   height: auto;
 }
 
