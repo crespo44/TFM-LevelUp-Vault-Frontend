@@ -17,7 +17,7 @@
 }
 
 .preloader-logo img {
-  width: clamp(180px, 25vw, 220px);
+  width: clamp(180px, 25vw, 550px);
   height: auto;
 }
 
