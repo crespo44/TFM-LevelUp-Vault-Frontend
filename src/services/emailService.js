@@ -11,7 +11,8 @@ const emailAPI = axios.create({
 
 const emailService = {
   sendEmail: (newUser) => emailAPI.post('/send-email', newUser),
-  sendContactEmail: (contactData) => emailAPI.post('/contact', contactData)
+  sendContactEmail: (contactData) => emailAPI.post('/contact', contactData),
+  uploadPage: () => emailAPI.get('/'),
 };
 
 export default emailService;
